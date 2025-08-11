@@ -14,6 +14,7 @@
         <div class="container">
             @yield('content')
         </div>
+        
         @include('layouts.footer')
         <!-- JavaScript files-->
         @include('layouts.scripts')
