@@ -6,7 +6,7 @@
 </head>
 
 <body>
-    <div class="page-holder">
+    <div class="page-holder {{ request()->routeIs('frontend.detail') ? 'bg-light' : '' }}">
         <!-- navbar-->
         @include('layouts.header')
 

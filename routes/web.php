@@ -8,15 +8,15 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/', [ForntendController::class, 'index'])->name('index');
+Route::get('/', [ForntendController::class, 'index'])->name('frontend.index');
 
-Route::get('/shop', [ForntendController::class, 'shop'])->name('shop');
+Route::get('/shop', [ForntendController::class, 'shop'])->name('frontend.shop');
 
-Route::get('/detail', [ForntendController::class, 'detail'])->name('detail');
+Route::get('/detail', [ForntendController::class, 'detail'])->name('frontend.detail');
 
-Route::get('/cart', [ForntendController::class, 'cart'])->name('cart');
+Route::get('/cart', [ForntendController::class, 'cart'])->name('frontend.cart');
 
-Route::get('/checkout', [ForntendController::class, 'checkout'])->name('checkout');
+Route::get('/checkout', [ForntendController::class, 'checkout'])->name('frontend.checkout');
 
 // Route::get('/test', [ForntendController::class, 'test'])->name('test');
 

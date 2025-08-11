@@ -8,32 +8,32 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <!-- Link--><a class="nav-link active" href="{{ route('index') }}">Home</a>
+                        <!-- Link--><a class="nav-link active" href="{{ route('frontend.index') }}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <!-- Link--><a class="nav-link" href="{{ route('shop') }}">Shop</a>
+                        <!-- Link--><a class="nav-link" href="{{ route('frontend.shop') }}">Shop</a>
                     </li>
                     <li class="nav-item">
-                        <!-- Link--><a class="nav-link" href="{{ route('detail') }}">Product detail</a>
+                        <!-- Link--><a class="nav-link" href="{{ route('frontend.detail') }}">Product detail</a>
                     </li>
                     <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="pagesDropdown" href="#"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
                         <div class="dropdown-menu mt-3" aria-labelledby="pagesDropdown">
-                            <a class="dropdown-item border-0 transition-link" href="{{ route('index') }}">Homepage</a>
-                            <a class="dropdown-item border-0 transition-link" href="{{ route('shop') }}">Category</a>
-                            <a class="dropdown-item border-0 transition-link" href="{{ route('detail') }}">Product
+                            <a class="dropdown-item border-0 transition-link" href="{{ route('frontend.index') }}">Homepage</a>
+                            <a class="dropdown-item border-0 transition-link" href="{{ route('frontend.shop') }}">Category</a>
+                            <a class="dropdown-item border-0 transition-link" href="{{ route('frontend.detail') }}">Product
                                 detail
                             </a>
-                            <a class="dropdown-item border-0 transition-link" href="{{ route('cart') }}">Shopping
+                            <a class="dropdown-item border-0 transition-link" href="{{ route('frontend.cart') }}">Shopping
                                 cart
                             </a>
                             <a class="dropdown-item border-0 transition-link"
-                                href="{{ route('checkout') }}">Checkout</a>
+                                href="{{ route('frontend.checkout') }}">Checkout</a>
                         </div>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link" href="cart.html"> <i
+                    <li class="nav-item"><a class="nav-link" href="{{ route('frontend.cart') }}"> <i
                                 class="fas fa-dolly-flatbed mr-1 text-gray"></i>Cart<small
                                 class="text-gray">(2)</small></a></li>
                     <li class="nav-item"><a class="nav-link" href="#"> <i class="far fa-heart mr-1"></i><small
