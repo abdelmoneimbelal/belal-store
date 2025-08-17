@@ -1,4 +1,7 @@
 @extends('layouts.master')
+
+@section('title', 'Home')
+
 @section('content')
   <section class="hero pb-3 bg-cover bg-center d-flex align-items-center"
     style="background: url({{ asset('frontend/img/hero-banner-alt.jpg') }})">
