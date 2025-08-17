@@ -21,7 +21,7 @@ Route::get('/checkout', [ForntendController::class, 'checkout'])->name('frontend
 
 // Route::get('/test', [ForntendController::class, 'test'])->name('test');
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::group(['middleware' => 'guest'], function () {
