@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Reset Password')
+
 @section('content')
     <section class="py-5 bg-light">
         <div class="container">

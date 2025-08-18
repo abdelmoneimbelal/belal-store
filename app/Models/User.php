@@ -13,6 +13,8 @@ class User extends Authenticatable implements MustVerifyEmail
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, EntrustUserWithPermissionsTrait;
 
+    protected $appends = ['full_name'];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -51,5 +53,10 @@ class User extends Authenticatable implements MustVerifyEmail
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function getFullNameAttribute()
+    {
+        return ucfirst($this->first_name) . ' ' . ucfirst($this->last_name);
     }
 }

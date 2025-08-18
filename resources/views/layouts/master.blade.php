@@ -15,7 +15,10 @@
             @yield('content')
         </div>
         
+        @include('partial.frontend.modal')
+        
         @include('layouts.footer')
+
         <!-- JavaScript files-->
         @include('layouts.scripts')
     </div>
