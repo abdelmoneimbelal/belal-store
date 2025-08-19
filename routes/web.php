@@ -28,11 +28,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('/login', [BackendController::class, 'login'])->name('login');
         Route::get('/forgot-password', [BackendController::class, 'forgot_password'])->name('forgot_password');
         Route::get('/', [BackendController::class, 'index'])->name('index_route');
-    });
+    }); 
 
-    // Route::group(['middleware' => ['roles', 'role:admin|supervisor']], function (){
-    Route::group(['middleware' => ['auth']], function (){
-        // Route::get('/', [BackendController::class, 'index'])->name('index_route');
+    Route::group(['middleware' => ['roles', 'role:admin|supervisor']], function (){
+    // Route::group(['middleware' => ['auth']], function (){
+        Route::get('/', [BackendController::class, 'index'])->name('index_route');
         Route::get('/index', [BackendController::class, 'index'])->name('index');
         Route::get('/account_settings', [BackendController::class, 'account_settings'])->name('account_settings');
         Route::post('/admin/remove-image', [BackendController::class, 'remove_image'])->name('remove_image');

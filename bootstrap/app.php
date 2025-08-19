@@ -7,6 +7,7 @@ use Mindscms\Entrust\Middleware\EntrustRole;
 use Mindscms\Entrust\Middleware\EntrustPermission;
 use Mindscms\Entrust\Middleware\EntrustAbility;
 use Mindscms\Entrust\EntrustFacade;
+use App\Http\Middleware\Roles;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -20,6 +21,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'role'          => EntrustRole::class,
             'permission'    => EntrustPermission::class,
             'ability'       => EntrustAbility::class,
+            'roles'         => Roles::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
