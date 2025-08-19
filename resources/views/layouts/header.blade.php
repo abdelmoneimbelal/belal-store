@@ -94,7 +94,7 @@
                             data-lightbox="productview"></a><a class="d-none" href="img/product-5-alt-2.jpg"
                             title="Red digital smartwatch" data-lightbox="productview"></a></div>
                     <div class="col-lg-6">
-                        <button class="close p-4" type="button" data-dismiss="modal" aria-label="Close"><span
+                        <button class="close p-4" type="button" data-bs-dismiss="modal" aria-label="Close"><span
                                 aria-hidden="true">×</span></button>
                         <div class="p-5 my-md-4">
                             <ul class="list-inline mb-2">

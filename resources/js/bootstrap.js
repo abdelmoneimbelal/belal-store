@@ -1,4 +1,8 @@
 import 'bootstrap';
+import jQuery from 'jquery';
+
+// Make jQuery available globally
+window.$ = window.jQuery = jQuery;
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
