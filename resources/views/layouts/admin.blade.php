@@ -5,9 +5,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Ecommerce Application">
-    <meta name="author" content="MindsCMS">
-
+    <meta name="description" content="Ecommerce Application, Abdelmoneim Belal, belal-store">
+    <meta name="author" content="Abdelmoneim Belal">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
@@ -58,7 +57,6 @@
     </div>
     <!-- Scripts -->
     <script src="{{ asset('backend/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
-    <script src="{{ asset('backend/js/sb-admin-2.min.js') }}"></script>
     <script src="{{ asset('backend/js/custom.js') }}"></script>
     <script src="{{ asset('backend/vendor/bootstrap-fileinput/js/plugins/piexif.min.js') }}"></script>
     <script src="{{ asset('backend/vendor/bootstrap-fileinput/js/plugins/sortable.min.js') }}"></script>
@@ -66,7 +64,6 @@
     <script src="{{ asset('backend/vendor/bootstrap-fileinput/themes/fas/theme.min.js') }}"></script>
 
     <script src="{{ asset('backend/vendor/summernote/summernote-bs4.min.js') }}"></script>
-
 
     @yield('script')
 
