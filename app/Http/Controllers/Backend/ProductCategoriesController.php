@@ -18,8 +18,9 @@ class ProductCategoriesController extends Controller
             return redirect('admin/index');
         }
 
-        $categories = ProductCategory::withCount('products')
-            ->when(\request()->keyword != null, function ($query) {
+        $categories = ProductCategory::
+        // $categories = ProductCategory::withCount('products')
+            when(\request()->keyword != null, function ($query) {
                 $query->search(\request()->keyword);
             })
             ->when(\request()->status != null, function ($query) {

@@ -58,10 +58,10 @@ class ProductCategory extends Model
             ->get();
     }
 
-    public function products()
-    {
-        return $this->hasMany(Product::class);
-    }
+    // public function products()
+    // {
+    //     return $this->hasMany(Product::class);
+    // }
 
 
 }
