@@ -9,3 +9,17 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+/* Fix SB Admin 2 arrow icon with Bootstrap 5 data attributes */
+.sidebar .nav-link[data-bs-toggle="collapse"]::after {
+    width: 1rem;
+    text-align: center;
+    float: right;
+    content: "\f107";
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+}
+
+.sidebar .nav-link[data-bs-toggle="collapse"].collapsed::after {
+    content: "\f105";
+}
