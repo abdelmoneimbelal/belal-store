@@ -1,5 +1,5 @@
-{{-- @php
-$current_page = \Route::currentRouteName();
+@php
+    $current_page = \Route::currentRouteName();
 @endphp
 
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -14,93 +14,93 @@ $current_page = \Route::currentRouteName();
     <hr class="sidebar-divider my-0">
     @role(['admin'])
     @foreach($admin_side_menu as $menu)
-    @if (count($menu->appearedChildren) == 0)
-    <li class="nav-item {{ $menu->id == getParentShowOf($current_page) ? 'active' : null }}">
-        <a href="{{ route('admin.'. $menu->as) }}" class="nav-link">
-            <i class="{{ $menu->icon != '' ? $menu->icon : 'fas fa-home' }}"></i>
-            <span>{{ $menu->display_name }}</span>
-        </a>
-    </li>
-    <!-- Divider -->
-    <hr class="sidebar-divider">
-    @else
-    <li
-        class="nav-item {{ in_array($menu->parent_show, [getParentShowOf($current_page), getParentOf($current_page)]) ? 'active' : null }}">
-        <a class="nav-link {{ in_array($menu->parent_show, [getParentShowOf($current_page), getParentOf($current_page)]) ? 'collapsed' : null }}"
-            href="#" data-toggle="collapse" data-target="#collapse_{{ $menu->route }}"
-            aria-expanded="{{ $menu->parent_show == getParentOf($current_page) && getParentOf($current_page) != '' ? 'false' : 'true' }}"
-            aria-controls="collapse_{{ $menu->route }}">
-            <i class="{{ $menu->icon != '' ? $menu->icon : 'fas fa-home' }}"></i>
-            <span>{{ $menu->display_name }}</span>
-        </a>
-        @if ($menu->appearedChildren !== null && count($menu->appearedChildren) > 0 )
-        <div id="collapse_{{ $menu->route }}"
-            class="collapse {{ in_array($menu->parent_show, [getParentShowOf($current_page), getParentOf($current_page)]) ? 'show' : null }}"
-            aria-labelledby="heading_{{ $menu->route }}" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                @foreach($menu->appearedChildren as $sub_menu)
-                <a class="collapse-item {{ getParentOf($current_page) != null && (int)(getParentIdOf($current_page)+1) == $sub_menu->id ? 'active' : null }}"
-                    href="{{ route('admin.' . $sub_menu->as) }}">
-                    {{ $sub_menu->display_name }}
+        @if (count($menu->appearedChildren) == 0)
+            <li class="nav-item {{ $menu->id == getParentShowOf($current_page) ? 'active' : null }}">
+                <a href="{{ route('admin.' . $menu->as) }}" class="nav-link">
+                    <i class="{{ $menu->icon != '' ? $menu->icon : 'fas fa-home' }}"></i>
+                    <span>{{ $menu->display_name }}</span>
                 </a>
-                @endforeach
-            </div>
-        </div>
+            </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+        @else
+            <li
+                class="nav-item {{ in_array($menu->parent_show, [getParentShowOf($current_page), getParentOf($current_page)]) ? 'active' : null }}">
+                <a class="nav-link {{ in_array($menu->parent_show, [getParentShowOf($current_page), getParentOf($current_page)]) ? 'collapsed' : null }}"
+                    href="#" data-bs-toggle="collapse" data-bs-target="#collapse_{{ $menu->route }}"
+                    aria-expanded="{{ $menu->parent_show == getParentOf($current_page) && getParentOf($current_page) != '' ? 'false' : 'true' }}"
+                    aria-controls="collapse_{{ $menu->route }}">
+                    <i class="{{ $menu->icon != '' ? $menu->icon : 'fas fa-home' }}"></i>
+                    <span>{{ $menu->display_name }}</span>
+                </a>
+                @if ($menu->appearedChildren !== null && count($menu->appearedChildren) > 0)
+                    <div id="collapse_{{ $menu->route }}"
+                        class="collapse {{ in_array($menu->parent_show, [getParentShowOf($current_page), getParentOf($current_page)]) ? 'show' : null }}"
+                        aria-labelledby="heading_{{ $menu->route }}" data-bs-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            @foreach($menu->appearedChildren as $sub_menu)
+                                <a class="collapse-item {{ getParentOf($current_page) != null && (int) (getParentIdOf($current_page) + 1) == $sub_menu->id ? 'active' : null }}"
+                                    href="{{ route('admin.' . $sub_menu->as) }}">
+                                    {{ $sub_menu->display_name }}
+                                </a>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
+            </li>
         @endif
-    </li>
-    @endif
     @endforeach
     @endrole
 
     @role(['supervisor'])
     @foreach($admin_side_menu as $menu)
-    @permission($menu->name)
-    @if (count($menu->appearedChildren) == 0)
-    <li class="nav-item {{ $menu->id == getParentShowOf($current_page) ? 'active' : null }}">
-        <a href="{{ route('admin.'. $menu->as) }}" class="nav-link">
-            <i class="{{ $menu->icon != '' ? $menu->icon : 'fas fa-home' }}"></i>
-            <span>{{ $menu->display_name }}</span>
-        </a>
-    </li>
-    <!-- Divider -->
-    <hr class="sidebar-divider">
-    @else
-    <li
-        class="nav-item {{ in_array($menu->parent_show, [getParentShowOf($current_page), getParentOf($current_page)]) ? 'active' : null }}">
-        <a class="nav-link {{ in_array($menu->parent_show, [getParentShowOf($current_page), getParentOf($current_page)]) ? 'collapsed' : null }}"
-            href="#" data-toggle="collapse" data-target="#collapse_{{ $menu->route }}"
-            aria-expanded="{{ $menu->parent_show == getParentOf($current_page) && getParentOf($current_page) != '' ? 'false' : 'true' }}"
-            aria-controls="collapse_{{ $menu->route }}">
-            <i class="{{ $menu->icon != '' ? $menu->icon : 'fas fa-home' }}"></i>
-            <span>{{ $menu->display_name }}</span>
-        </a>
-        @if ($menu->appearedChildren !== null && count($menu->appearedChildren) > 0 )
-        <div id="collapse_{{ $menu->route }}"
-            class="collapse {{ in_array($menu->parent_show, [getParentShowOf($current_page), getParentOf($current_page)]) ? 'show' : null }}"
-            aria-labelledby="heading_{{ $menu->route }}" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                @foreach($menu->appearedChildren as $sub_menu)
-                @permission($sub_menu->name)
-                <a class="collapse-item {{ getParentOf($current_page) != null && (int)(getParentIdOf($current_page)+1) == $sub_menu->id ? 'active' : null }}"
-                    href="{{ route('admin.' . $sub_menu->as) }}">
-                    {{ $sub_menu->display_name }}
+        @permission($menu->name)
+        @if (count($menu->appearedChildren) == 0)
+            <li class="nav-item {{ $menu->id == getParentShowOf($current_page) ? 'active' : null }}">
+                <a href="{{ route('admin.' . $menu->as) }}" class="nav-link">
+                    <i class="{{ $menu->icon != '' ? $menu->icon : 'fas fa-home' }}"></i>
+                    <span>{{ $menu->display_name }}</span>
                 </a>
-                @endpermission
-                @endforeach
-            </div>
-        </div>
+            </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+        @else
+            <li
+                class="nav-item {{ in_array($menu->parent_show, [getParentShowOf($current_page), getParentOf($current_page)]) ? 'active' : null }}">
+                <a class="nav-link {{ in_array($menu->parent_show, [getParentShowOf($current_page), getParentOf($current_page)]) ? 'collapsed' : null }}"
+                    href="#" data-bs-toggle="collapse" data-bs-target="#collapse_{{ $menu->route }}"
+                    aria-expanded="{{ $menu->parent_show == getParentOf($current_page) && getParentOf($current_page) != '' ? 'false' : 'true' }}"
+                    aria-controls="collapse_{{ $menu->route }}">
+                    <i class="{{ $menu->icon != '' ? $menu->icon : 'fas fa-home' }}"></i>
+                    <span>{{ $menu->display_name }}</span>
+                </a>
+                @if ($menu->appearedChildren !== null && count($menu->appearedChildren) > 0)
+                    <div id="collapse_{{ $menu->route }}"
+                        class="collapse {{ in_array($menu->parent_show, [getParentShowOf($current_page), getParentOf($current_page)]) ? 'show' : null }}"
+                        aria-labelledby="heading_{{ $menu->route }}" data-bs-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            @foreach($menu->appearedChildren as $sub_menu)
+                                @permission($sub_menu->name)
+                                <a class="collapse-item {{ getParentOf($current_page) != null && (int) (getParentIdOf($current_page) + 1) == $sub_menu->id ? 'active' : null }}"
+                                    href="{{ route('admin.' . $sub_menu->as) }}">
+                                    {{ $sub_menu->display_name }}
+                                </a>
+                                @endpermission
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
+            </li>
         @endif
-    </li>
-    @endif
-    @endpermission
+        @endpermission
     @endforeach
     @endrole
 
 </ul>
-<!-- End of Sidebar --> --}}
+<!-- End of Sidebar -->
 
 <!-- Sidebar -->
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+{{-- <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
@@ -130,8 +130,8 @@ $current_page = \Route::currentRouteName();
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true"
-            aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+            aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-cog"></i>
             <span>Components</span>
         </a>
@@ -151,7 +151,8 @@ $current_page = \Route::currentRouteName();
             <i class="fas fa-fw fa-wrench"></i>
             <span>Utilities</span>
         </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-bs-parent="#accordionSidebar">
+        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+            data-bs-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Custom Utilities:</h6>
                 <a class="collapse-item" href="utilities-color.html">Colors</a>
@@ -172,8 +173,8 @@ $current_page = \Route::currentRouteName();
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="true"
-            aria-controls="collapsePages">
+        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages"
+            aria-expanded="true" aria-controls="collapsePages">
             <i class="fas fa-fw fa-folder"></i>
             <span>Pages</span>
         </a>
@@ -221,5 +222,5 @@ $current_page = \Route::currentRouteName();
         <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
     </div>
 
-</ul>
+</ul> --}}
 <!-- End of Sidebar -->
