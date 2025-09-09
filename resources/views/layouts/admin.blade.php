@@ -66,6 +66,9 @@
     <script src="{{ asset('backend/vendor/bootstrap-fileinput/themes/fas/theme.min.js') }}"></script>
 
     <script src="{{ asset('backend/vendor/summernote/summernote-bs4.min.js') }}"></script>
+    
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     @yield('script')
 
