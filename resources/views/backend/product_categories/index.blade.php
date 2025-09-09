@@ -33,7 +33,7 @@
                 @forelse($categories as $category)
                     <tr>
                         <td>
-                            <img src="{{ asset('assets/product_categories/' . $category->cover) }}" alt="{{ $category->name }}" style="width: 50px; height: 50px;">
+                            <img class="img-thumbnail" src="{{ asset('assets/product_categories/' . $category->cover) }}" alt="{{ $category->name }}" style="width: 50px; height: 50px;">
                         </td>
                         <td>{{ $category->name }}</td>
                         <td>{{ $category->products_count }}</td>
