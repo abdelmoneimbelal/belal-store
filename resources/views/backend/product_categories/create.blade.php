@@ -30,11 +30,11 @@
                         <select name="parent_id" class="form-control">
                             <option value="">---</option>
                             @forelse($main_categories as $main_category)
-                            <option value="{{ $main_category->id }}" {{ old('parent_id') == $main_category->id ? 'selected' : null }}>{{ $main_category->name }}</option>
+                                <option value="{{ $main_category->id }}" {{ old('parent_id') == $main_category->id ? 'selected' : null }}>{{ $main_category->name }}</option>
                             @empty
                             @endforelse
                         </select>
-                         @error('parent_id')<span class="text-danger">{{ $message }}</span>@enderror
+                        @error('parent_id')<span class="text-danger">{{ $message }}</span>@enderror
                     </div>
 
                     <div class="col-3">
@@ -51,10 +51,13 @@
                     <div class="col-12">
                         <label for="cover">Cover</label>
                         <br>
-                        <div class="file-loading">
-                            <input type="file" name="cover" id="category-image" class="file-input-overview">
-                            <span class="form-text text-muted">Image width should be 500px x 500px</span>
-                            @error('cover')<span class="text-danger">{{ $message }}</span>@enderror
+                        <input type="file" name="cover" id="category-image" class="form-control file-input" accept="image/*">
+                        <span class="form-text text-muted">Image width should be 500px x 500px</span>
+                        @error('cover')<span class="text-danger">{{ $message }}</span>@enderror
+                        
+                        <!-- Image Preview Container -->
+                        <div id="image-preview-container" class="mt-3" style="display: none;">
+                            <img id="image-preview" src="" alt="Preview" class="img-thumbnail" style="max-width: 200px; max-height: 200px;">
                         </div>
                     </div>
                 </div>
@@ -69,16 +72,24 @@
 @endsection
 @section('script')
     <script>
-        $(function(){
-           $("#category-image").fileinput({
-               theme: "fas",
-               maxFileCount: 1,
-               allowedFileTypes: ['image'],
-               showCancel: true,
-               showRemove: false,
-               showUpload: false,
-               overwriteInitial: false
-           });
+        $(function () {
+            // Image preview functionality
+            $("#category-image").on('change', function(e) {
+                const file = e.target.files[0];
+                const previewContainer = $("#image-preview-container");
+                const previewImg = $("#image-preview");
+                
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        previewImg.attr('src', e.target.result);
+                        previewContainer.show();
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    previewContainer.hide();
+                }
+            });
         });
     </script>
 @endsection

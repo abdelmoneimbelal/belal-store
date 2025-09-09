@@ -9,8 +9,7 @@ use Nicolaslopezj\Searchable\SearchableTrait;
 
 class ProductCategory extends Model
 { 
-    use HasFactory, Sluggable;
-    // use HasFactory, Sluggable, SearchableTrait;
+    use HasFactory, Sluggable, SearchableTrait;
 
     protected $guarded = [];
 

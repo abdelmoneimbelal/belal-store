@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\ProductCategoryRequest;
-use App\Models\ProductCategory;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
-use Intervention\Image\Facades\Image;
+use Illuminate\Http\Request;
+use App\Models\ProductCategory;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
+use Intervention\Image\Laravel\Facades\Image;
+use App\Http\Requests\Backend\ProductCategoryRequest;
 
 class ProductCategoriesController extends Controller
 {
@@ -18,8 +18,8 @@ class ProductCategoriesController extends Controller
             return redirect('admin/index');
         }
 
-        $categories = ProductCategory::
-        // $categories = ProductCategory::withCount('products')
+        // $categories = ProductCategory::
+        $categories = ProductCategory::withCount('products')->
             when(\request()->keyword != null, function ($query) {
                 $query->search(\request()->keyword);
             })
@@ -54,9 +54,15 @@ class ProductCategoriesController extends Controller
         if ($image = $request->file('cover')) {
             $file_name = Str::slug($request->name).".".$image->getClientOriginalExtension();
             $path = public_path('/assets/product_categories/' . $file_name);
-            Image::make($image->getRealPath())->resize(500, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save($path, 100);
+            
+            // Create directory if it doesn't exist
+            if (!File::exists(public_path('/assets/product_categories/'))) {
+                File::makeDirectory(public_path('/assets/product_categories/'), 0755, true);
+            }
+            
+            Image::read($image->getRealPath())
+                ->resize(500, null)
+                ->save($path, 100);
             $input['cover'] = $file_name;
         }
 
@@ -104,9 +110,15 @@ class ProductCategoriesController extends Controller
             }
             $file_name = Str::slug($request->name).".".$image->getClientOriginalExtension();
             $path = public_path('/assets/product_categories/' . $file_name);
-            Image::make($image->getRealPath())->resize(500, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save($path, 100);
+            
+            // Create directory if it doesn't exist
+            if (!File::exists(public_path('/assets/product_categories/'))) {
+                File::makeDirectory(public_path('/assets/product_categories/'), 0755, true);
+            }
+            
+            Image::read($image->getRealPath())
+                ->resize(500, null)
+                ->save($path, 100);
             $input['cover'] = $file_name;
         }
 
