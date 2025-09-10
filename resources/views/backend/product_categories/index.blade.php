@@ -19,47 +19,51 @@
         <div class="table-responsive">
             <table class="table table-hover">
                 <thead>
-                <tr>
-                    <th>Cover</th>
-                    <th>Name</th>
-                    <th>Products count</th>
-                    <th>Parent</th>
-                    <th>Status</th>
-                    <th>Created at</th>
-                    <th class="text-center" style="width: 30px;">Actions</th>
-                </tr>
+                    <tr>
+                        <th>Cover</th>
+                        <th>Name</th>
+                        <th>Products count</th>
+                        <th>Parent</th>
+                        <th>Status</th>
+                        <th>Created at</th>
+                        <th class="text-center" style="width: 30px;">Actions</th>
+                    </tr>
                 </thead>
                 <tbody>
-                @forelse($categories as $category)
-                    <tr>
-                        <td>
-                            <img class="img-thumbnail" src="{{ asset('assets/product_categories/' . $category->cover) }}" alt="{{ $category->name }}" style="width: 50px; height: 50px;">
-                        </td>
-                        <td>{{ $category->name }}</td>
-                        <td>{{ $category->products_count }}</td>
-                        <td>{{ $category->parent != null ? $category->parent->name : '-' }}</td>
-                        <td>{{ $category->status() }}</td>
-                        <td>{{ $category->created_at }}</td>
-                        <td>
-                            <div class="btn-group btn-group-sm">
-                                <a href="{{ route('admin.product_categories.edit', $category->id) }}" class="btn btn-primary">
-                                    <i class="fa fa-edit"></i>
-                                </a>
-                                <a href="javascript:void(0);" onclick="deleteCategory({{ $category->id }})" class="btn btn-danger">
-                                    <i class="fa fa-trash"></i>
-                                </a>
-                            </div>
-                            <form action="{{ route('admin.product_categories.destroy', $category->id) }}" method="post" id="delete-product-category-{{ $category->id }}" class="d-none">
-                                @csrf
-                                @method('DELETE')
-                            </form>
-                        </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="6" class="text-center">No categories found</td>
-                    </tr>
-                @endforelse
+                    @forelse($categories as $category)
+                        <tr>
+                            <td>
+                                <img class="img-thumbnail" src="{{ asset('assets/product_categories/' . $category->cover) }}"
+                                    alt="{{ $category->name }}" style="width: 50px; height: 50px;">
+                            </td>
+                            <td>{{ $category->name }}</td>
+                            <td>{{ $category->products_count }}</td>
+                            <td>{{ $category->parent != null ? $category->parent->name : '-' }}</td>
+                            <td>{{ $category->status() }}</td>
+                            <td>{{ $category->created_at }}</td>
+                            <td>
+                                <div class="btn-group btn-group-sm">
+                                    <a href="{{ route('admin.product_categories.edit', $category->id) }}"
+                                        class="btn btn-primary">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <a href="javascript:void(0);" onclick="deleteCategory({{ $category->id }})"
+                                        class="btn btn-danger">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </div>
+                                <form action="{{ route('admin.product_categories.destroy', $category->id) }}" method="post"
+                                    id="delete-product-category-{{ $category->id }}" class="d-none">
+                                    @csrf
+                                    @method('DELETE')
+                                </form>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="6" class="text-center">No categories found</td>
+                        </tr>
+                    @endforelse
                 </tbody>
                 <tfoot>
                     <tr>
@@ -77,22 +81,22 @@
 @endsection
 
 @section('script')
-<script>
-function deleteCategory(categoryId) {
-    Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'Cancel'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            document.getElementById('delete-product-category-' + categoryId).submit();
+    <script>
+        function deleteCategory(categoryId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('delete-product-category-' + categoryId).submit();
+                }
+            });
         }
-    });
-}
-</script>
+    </script>
 @endsection
