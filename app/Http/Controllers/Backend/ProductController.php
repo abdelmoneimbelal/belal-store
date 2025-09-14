@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\ProductRequest;
-use App\Models\Product;
-use App\Models\ProductCategory;
 use App\Models\Tag;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Models\ProductCategory;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
-use Intervention\Image\Facades\Image;
+use App\Http\Requests\Backend\ProductRequest;
+use Intervention\Image\Laravel\Facades\Image;
 
 class ProductController extends Controller
 {
@@ -67,9 +67,13 @@ class ProductController extends Controller
                 $file_type = $image->getMimeType();
                 $path = public_path('assets/products/' . $file_name);
 
-                Image::make($image->getRealPath())->resize(500, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                })->save($path, 100);
+                // Create directory if it doesn't exist
+                if (!File::exists(public_path('/assets/products/'))) {
+                    File::makeDirectory(public_path('/assets/products/'), 0755, true);
+                }
+
+                Image::read($image->getRealPath())->resize(500, null)
+                ->save($path, 100);
 
                 $product->media()->create([
                     'file_name' => $file_name,
@@ -133,9 +137,14 @@ class ProductController extends Controller
                 $file_type = $image->getMimeType();
                 $path = public_path('assets/products/' . $file_name);
 
-                Image::make($image->getRealPath())->resize(500, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                })->save($path, 100);
+                // Create directory if it doesn't exist
+                if (!File::exists(public_path('/assets/products/'))) {
+                    File::makeDirectory(public_path('/assets/products/'), 0755, true);
+                }
+
+                Image::read($image->getRealPath())
+                ->resize(500, null)
+                ->save($path, 100);
 
                 $product->media()->create([
                     'file_name' => $file_name,

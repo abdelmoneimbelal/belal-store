@@ -36,9 +36,9 @@
                     <tr>
                         <td>
                             @if ($product->firstMedia)
-                                <img src="{{ asset('assets/products/' . $product->firstMedia->file_name) }}" width="60" height="60" alt="{{ $product->name }}">
+                                <img class="img-thumbnail" src="{{ asset('assets/products/' . $product->firstMedia->file_name) }}" style="width: 60px; height: 60px;" alt="{{ $product->name }}">
                             @else
-                                <img src="{{ asset('assets/no-image.jpg') }}" width="60" height="60" alt="{{ $product->name }}">
+                                <img class="img-thumbnail" src="{{ asset('assets/no-image.jpg') }}" style="width: 60px; height: 60px;" alt="{{ $product->name }}">
                             @endif
                         </td>
                         <td>{{ $product->name }}</td>
