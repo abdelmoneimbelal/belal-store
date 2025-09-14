@@ -25,6 +25,7 @@
     <link href="{{ asset('backend/css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('backend/vendor/bootstrap-fileinput/css/fileinput.min.css') }}">
     <link rel="stylesheet" href="{{ asset('backend/vendor/summernote/summernote-bs4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('backend/vendor/select2/css/select2.min.css') }}">
     @yield('style')
 </head>
 
@@ -66,6 +67,9 @@
     <script src="{{ asset('backend/vendor/bootstrap-fileinput/themes/fas/theme.min.js') }}"></script>
 
     <script src="{{ asset('backend/vendor/summernote/summernote-bs4.min.js') }}"></script>
+    
+    <!-- Select2 -->
+    <script src="{{ asset('backend/vendor/select2/js/select2.full.min.js') }}"></script>
     
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

@@ -1,6 +1,5 @@
 @extends('layouts.admin')
 @section('style')
-    <link rel="stylesheet" href="{{ asset('backend/vendor/select2/css/select2.min.css') }}">
 @endsection
 @section('content')
 
@@ -112,7 +111,6 @@
 
 @endsection
 @section('script')
-    <script src="{{ asset('backend/vendor/select2/js/select2.full.min.js') }}"></script>
     <script>
         $(function(){
             function matchStart(params, data) {
