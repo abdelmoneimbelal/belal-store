@@ -1,0 +1,80 @@
+<?php
+
+namespace App\Models;
+
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Nicolaslopezj\Searchable\SearchableTrait;
+
+class ProductCoupon extends Model
+{
+    use HasFactory, SearchableTrait;
+    protected $guarded = [];
+
+    protected $dates = ['start_date', 'expire_date'];
+
+    protected $casts = [
+        'start_date' => 'datetime',
+        'expire_date' => 'datetime',
+    ];
+
+    protected $searchable = [
+        'columns' => [
+            'product_coupons.code' => 10,
+            'product_coupons.description' => 10,
+        ]
+    ];
+
+    public function status()
+    {
+        return $this->status ? 'Active' : 'Inactive';
+    }
+
+    public function discount($total)
+    {
+        if (!$this->checkDate() || !$this->checkUsedTimes()){
+            return 0;
+        }
+        return $this->checkGreaterThan($total) ? $this->doProcess($total) : 0;
+    }
+
+    protected function checkDate()
+    {
+        if ($this->expire_date == '') {
+            return true;
+        }
+        
+        return Carbon::now()->between($this->start_date, $this->expire_date, true);
+    }
+
+    protected function checkUsedTimes()
+    {
+        if ($this->use_times == '') {
+            return true;
+        }
+        
+        return $this->use_times > $this->used_times;
+    }
+
+    protected function checkGreaterThan($total)
+    {
+        if ($this->greater_than == '') {
+            return true;
+        }
+        
+        return $this->greater_than >= $total;
+    }
+
+    protected function doProcess($total)
+    {
+        switch ($this->type) {
+            case 'fixed':
+                return $this->value;
+            case 'percentage':
+                return ($this->value / 100) * $total;
+            default:
+                return 0;
+        }
+    }
+}

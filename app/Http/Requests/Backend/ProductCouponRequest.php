@@ -29,7 +29,7 @@ class ProductCouponRequest extends FormRequest
                 return [
                     'code'              => 'required|unique:product_coupons',
                     'type'              => 'required',
-                    'value'             => 'required',
+                    'value'             => 'required|numeric',
                     'description'       => 'nullable',
                     'use_times'         => 'required|numeric',
                     'start_date'        => 'nullable|date_format:Y-m-d',
@@ -44,7 +44,7 @@ class ProductCouponRequest extends FormRequest
                 return [
                     'code'              => 'required|unique:product_coupons,code,'.$this->route()->product_coupon->id,
                     'type'              => 'required',
-                    'value'             => 'required',
+                    'value'             => 'required|numeric',
                     'description'       => 'nullable',
                     'use_times'         => 'required|numeric',
                     'start_date'        => 'nullable|date_format:Y-m-d',
