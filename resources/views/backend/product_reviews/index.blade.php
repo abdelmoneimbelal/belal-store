@@ -49,7 +49,7 @@
                                 <a href="{{ route('admin.product_reviews.edit', $review->id) }}" class="btn btn-primary">
                                     <i class="fa fa-edit"></i>
                                 </a>
-                                <a href="javascript:void(0);" onclick="if (confirm('Are you sure to delete this record?')) { document.getElementById('delete-product-review-{{ $review->id }}').submit(); } else { return false; }" class="btn btn-danger">
+                                <a href="javascript:void(0);" onclick="deleteReview({{ $review->id }})" class="btn btn-danger">
                                     <i class="fa fa-trash"></i>
                                 </a>
                             </div>
@@ -78,4 +78,26 @@
         </div>
     </div>
 
+@endsection
+
+
+@section('script')
+    <script>
+        function deleteReview(reviewId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('delete-product-review-' + reviewId).submit();
+                }
+            });
+        }
+    </script>
 @endsection

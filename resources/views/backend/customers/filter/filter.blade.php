@@ -1,5 +1,5 @@
 <div class="card-body">
-    <form action="{{ route('admin.product_categories.index') }}" method="get">
+    <form action="{{ route('admin.customers.index') }}" method="get">
     <div class="row">
         <div class="col-2">
             <div class="form-group">
@@ -9,7 +9,7 @@
         <div class="col-2">
             <div class="form-group">
                 <select name="status" class="form-control">
-                    <option selected>---</option>
+                    <option value="">---</option>
                     <option value="1" {{ old('status', request()->input('status')) == '1' ? 'selected' : '' }}>Active</option>
                     <option value="0" {{ old('status', request()->input('status')) == '0' ? 'selected' : '' }}>Inactive</option>
                 </select>
@@ -20,7 +20,8 @@
                 <select name="sort_by" class="form-control">
                     <option value="">---</option>
                     <option value="id" {{ old('sort_by', request()->input('sort_by')) == 'id' ? 'selected' : '' }}>ID</option>
-                    <option value="name" {{ old('sort_by', request()->input('sort_by')) == 'name' ? 'selected' : '' }}>Name</option>
+                    <option value="first_name" {{ old('sort_by', request()->input('sort_by')) == 'first_name' ? 'selected' : '' }}>First Name</option>
+                    <option value="last_name" {{ old('sort_by', request()->input('sort_by')) == 'last_name' ? 'selected' : '' }}>Last Name</option>
                     <option value="created_at" {{ old('sort_by', request()->input('sort_by')) == 'created_at' ? 'selected' : '' }}>Created at</option>
                 </select>
             </div>
@@ -48,7 +49,7 @@
         <div class="col-2"></div>
         <div class="col-1">
             <div class="form-group">
-                <button type="submit" name="submit" class="btn btn-primary btn-link text-white">Search</button>
+                <button type="submit" name="submit" class="btn btn-link">Search</button>
             </div>
         </div>
     </div>
