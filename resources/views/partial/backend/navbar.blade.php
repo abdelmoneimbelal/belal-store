@@ -1,4 +1,4 @@
-{{-- <!-- Topbar -->
+ <!-- Topbar -->
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
     <!-- Sidebar Toggle (Topbar) -->
@@ -11,14 +11,14 @@
 
         <!-- Nav Item - Alerts -->
         <li class="nav-item dropdown no-arrow mx-1">
-            <livewire:backend.navbar.notification-component />
-        </li> --}}
+            {{-- <livewire:backend.navbar.notification-component /> --}}
+        </li> 
 
         <!-- Nav Item - Messages -->
-        {{--
+    
         <li class="nav-item dropdown no-arrow mx-1">
             <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
-               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-envelope fa-fw"></i>
                 <!-- Counter - Messages -->
                 <span class="badge badge-danger badge-counter">7</span>
@@ -80,9 +80,9 @@
                 <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
             </div>
         </li>
-        --}}
+      
 
-        {{-- <li class="nav-item">
+         <li class="nav-item">
             <a href="{{ route('admin.supervisors.index') }}" class="nav-link">Supervisors</a>
         </li>
 
@@ -91,7 +91,7 @@
         <!-- Nav Item - User Information -->
         <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ auth()->user()->full_name }}</span>
                 @if (auth()->user()->user_image != '')
                     <img class="img-profile rounded-circle" src="{{ asset('assets/users/' . auth()->user()->user_image) }}">
@@ -116,10 +116,10 @@
 
     </ul>
 
-</nav> --}}
+</nav> 
 <!-- End of Topbar -->
 <!-- Topbar -->
-<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+{{-- <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
     <!-- Sidebar Toggle (Topbar) -->
     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -295,7 +295,7 @@
                     <img class="img-profile rounded-circle" src="{{ asset('assets/users/' . auth()->user()->user_image) }}">
                 @else
                     <img class="img-profile rounded-circle" src="{{ asset('backend/img/undraw_profile.svg') }}">
-                    {{-- <img class="img-profile rounded-circle" src="{{ asset('assets/users/avatar.svg') }}"> --}}
+                    <img class="img-profile rounded-circle" src="{{ asset('assets/users/avatar.svg') }}">
                 @endif
             </a>
             <!-- Dropdown - User Information -->
@@ -323,5 +323,5 @@
 
     </ul>
 
-</nav>
+</nav> --}}
 <!-- End of Topbar -->

@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\SupervisorRequest;
-use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
-use App\Models\UserPermissions;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
+use App\Models\Permission;
 use Illuminate\Support\Str;
-use Intervention\Image\Facades\Image;
+use Illuminate\Http\Request;
+use App\Models\UserPermissions;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
+use Intervention\Image\Laravel\Facades\Image;
+use App\Http\Requests\Backend\SupervisorRequest;
 
 class SupervisorController extends Controller
 {
@@ -62,9 +62,8 @@ class SupervisorController extends Controller
         if ($image = $request->file('user_image')) {
             $file_name = Str::slug($request->username).".".$image->getClientOriginalExtension();
             $path = public_path('/assets/users/' . $file_name);
-            Image::make($image->getRealPath())->resize(300, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save($path, 100);
+            Image::read($image->getRealPath())->resize(500, null)
+                ->save($path, 100);
             $input['user_image'] = $file_name;
         }
 
@@ -124,9 +123,8 @@ class SupervisorController extends Controller
             }
             $file_name = Str::slug($request->username).".".$image->getClientOriginalExtension();
             $path = public_path('/assets/users/' . $file_name);
-            Image::make($image->getRealPath())->resize(300, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save($path, 100);
+            Image::read($image->getRealPath())->resize(500, null)
+                ->save($path, 100);
             $input['user_image'] = $file_name;
         }
 
