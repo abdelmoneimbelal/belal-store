@@ -17,20 +17,35 @@ class WorldStatusSeeder extends Seeder
     public function run()
     {
         $countriesArray = ['Algeria', 'Bahrain', 'Djibouti', 'Egypt', 'Iraq', 'Jordan', 'Kuwait', 'Lebanon', 'Libya', 'Morocco', 'Mauritania', 'Oman', 'Palestinian Territory Occupied', 'Qatar', 'Saudi Arabia', 'Sudan', 'Syria', 'Tunisia', 'Yemen'];
-        Country::whereHas('states')->whereIn('name', $countriesArray)->update(['status' => true]);
+        
+        // Update countries status
+        $updatedCountries = Country::whereIn('name', $countriesArray)->update(['status' => true]);
+        $this->command->info("Updated {$updatedCountries} countries status to active");
 
-        State::select('states.*')
-            ->whereHas('cities')
-            ->join('countries', 'states.country_id', '=', 'countries.id')
-            ->where('countries.status', 1)
-            ->update(['states.status' => true]);
+        // Update states status for active countries
+        $updatedStates = State::whereIn('country_id', function($query) use ($countriesArray) {
+            $query->select('id')
+                  ->from('countries')
+                  ->whereIn('name', $countriesArray)
+                  ->where('status', 1);
+        })->update(['status' => true]);
+        $this->command->info("Updated {$updatedStates} states status to active");
 
-        City::select('cities.*')
-            ->join('states', 'cities.state_id', '=', 'states.id')
-            ->where('states.status', 1)
-            ->update(['cities.status' => true]);
+        // Update cities status for active states
+        $updatedCities = City::whereIn('state_id', function($query) use ($countriesArray) {
+            $query->select('states.id')
+                  ->from('states')
+                  ->join('countries', 'states.country_id', '=', 'countries.id')
+                  ->whereIn('countries.name', $countriesArray)
+                  ->where('countries.status', 1)
+                  ->where('states.status', 1);
+        })->update(['status' => true]);
+        $this->command->info("Updated {$updatedCities} cities status to active");
 
-        Country::whereName('Israel')->delete();
+        // Delete Israel
+        $deletedIsrael = Country::where('name', 'Israel')->delete();
+        $this->command->info("Deleted {$deletedIsrael} Israel records");
 
+        $this->command->info('World status seeder completed successfully!');
     }
 }
