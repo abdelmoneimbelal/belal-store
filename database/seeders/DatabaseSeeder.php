@@ -28,6 +28,8 @@ class DatabaseSeeder extends Seeder
             ProductsImagesSeeder::class,
             ProductCouponSeeder::class,
             ProductReviewSeeder::class,
+            WorldSeeder::class,
+            WorldStatusSeeder::class,
         ]);
     }
 }
