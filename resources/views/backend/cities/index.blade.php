@@ -37,7 +37,7 @@
                                 <a href="{{ route('admin.cities.edit', $city->id) }}" class="btn btn-primary">
                                     <i class="fa fa-edit"></i>
                                 </a>
-                                <a href="javascript:void(0);" onclick="if (confirm('Are you sure to delete this record?')) { document.getElementById('delete-cities-{{ $city->id }}').submit(); } else { return false; }" class="btn btn-danger">
+                                <a href="javascript:void(0);" onclick="deleteCity({{ $city->id }})" class="btn btn-danger">
                                     <i class="fa fa-trash"></i>
                                 </a>
                             </div>
@@ -66,4 +66,25 @@
         </div>
     </div>
 
+@endsection
+
+@section('script')
+    <script>
+        function deleteCity(cityId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('delete-cities-' + cityId).submit();
+                }
+            });
+        }
+    </script>
 @endsection

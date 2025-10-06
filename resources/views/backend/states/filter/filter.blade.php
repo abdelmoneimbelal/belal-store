@@ -48,7 +48,7 @@
             <div class="col-2"></div>
             <div class="col-1">
                 <div class="form-group">
-                    <button type="submit" name="submit" class="btn btn-link">Search</button>
+                    <button type="submit" name="submit" class="btn btn-primary btn-link text-white">Search</button>
                 </div>
             </div>
         </div>
