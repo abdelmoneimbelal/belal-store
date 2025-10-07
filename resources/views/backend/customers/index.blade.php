@@ -39,7 +39,10 @@
                             @endif
                         </td>
                         <td>
-                            {{ $customer->full_name }}<br>
+                            <a href="{{ route('admin.customers.show', $customer->id) }}">
+                                {{ $customer->full_name }}
+                            </a>
+                            <br>
                             <strong>{{ $customer->username }}</strong>
                         </td>
                         <td>

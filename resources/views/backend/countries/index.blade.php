@@ -20,6 +20,7 @@
             <table class="table table-hover">
                 <thead>
                 <tr>
+                    <th>ID</th>
                     <th>Name</th>
                     <th>States count</th>
                     <th>Status</th>
@@ -29,6 +30,7 @@
                 <tbody>
                 @forelse($countries as $country)
                     <tr>
+                        <td>{{ $country->id }}</td>
                         <td>{{ $country->name }}</td>
                         <td>{{ $country->states->count() }}</td>
                         <td>{{ $country->status() }}</td>

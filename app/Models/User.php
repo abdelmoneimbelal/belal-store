@@ -4,15 +4,15 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Mindscms\Entrust\Traits\EntrustUserWithPermissionsTrait;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, EntrustUserWithPermissionsTrait;
+    use EntrustUserWithPermissionsTrait, HasFactory, Notifiable;
 
     protected $appends = ['full_name'];
 
@@ -58,12 +58,23 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getFullNameAttribute()
     {
-        return ucfirst($this->first_name) . ' ' . ucfirst($this->last_name);
+        return ucfirst($this->first_name).' '.ucfirst($this->last_name);
     }
 
     public function status(): string
     {
         return $this->status ? 'Active' : 'Inactive';
+    }
+
+    public function scopeSearch($query, $value)
+    {
+        return $query->where(function ($q) use ($value) {
+            $q->where('first_name', 'like', '%'.$value.'%')
+                ->orWhere('last_name', 'like', '%'.$value.'%')
+                ->orWhere('username', 'like', '%'.$value.'%')
+                ->orWhere('email', 'like', '%'.$value.'%')
+                ->orWhere('mobile', 'like', '%'.$value.'%');
+        });
     }
 
     public function reviews(): HasMany

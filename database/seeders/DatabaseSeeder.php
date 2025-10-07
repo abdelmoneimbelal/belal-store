@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
             ProductReviewSeeder::class,
             WorldSeeder::class,
             WorldStatusSeeder::class,
+            UserAddressSeeder::class,
         ]);
     }
 }

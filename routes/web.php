@@ -14,6 +14,7 @@ use App\Http\Controllers\Forntend\ForntendController;
 use App\Http\Controllers\Backend\SupervisorController;
 use App\Http\Controllers\Backend\ProductCouponController;
 use App\Http\Controllers\Backend\ProductReviewController;
+use App\Http\Controllers\Backend\CustomerAddressController;
 use App\Http\Controllers\Backend\ProductCategoriesController;
 
 
