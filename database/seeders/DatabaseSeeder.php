@@ -31,6 +31,7 @@ class DatabaseSeeder extends Seeder
             WorldSeeder::class,
             WorldStatusSeeder::class,
             UserAddressSeeder::class,
+            ShippingCompanySeeder::class,
         ]);
     }
 }
