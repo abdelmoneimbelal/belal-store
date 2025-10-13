@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\AdminInfoRequest;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
-use Intervention\Image\Facades\Image;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
+use Intervention\Image\Laravel\Facades\Image;
+use App\Http\Requests\Backend\AdminInfoRequest;
 
 class BackendController extends Controller
 {
@@ -48,9 +48,10 @@ class BackendController extends Controller
                 }
                 $file_name = Str::slug($request->username).".".$image->getClientOriginalExtension();
                 $path = public_path('/assets/users/' . $file_name);
-                Image::make($image->getRealPath())->resize(300, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                })->save($path, 100);
+                
+                Image::read($image->getRealPath())
+                ->resize(500, null)
+                ->save($path, 100);
                 $data['user_image'] = $file_name;
             }
 
