@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Frontend\FrontendController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -10,7 +11,6 @@ use App\Http\Controllers\Backend\BackendController;
 use App\Http\Controllers\Backend\CountryController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\CustomerController;
-use App\Http\Controllers\Forntend\ForntendController;
 use App\Http\Controllers\Backend\SupervisorController;
 use App\Http\Controllers\Backend\ProductCouponController;
 use App\Http\Controllers\Backend\ProductReviewController;
@@ -21,17 +21,32 @@ use App\Http\Controllers\Backend\ProductCategoriesController;
 
 
 
-Route::get('/', [ForntendController::class, 'index'])->name('frontend.index');
+Route::get('/', [FrontendController::class, 'index'])->name('frontend.index');
 
-Route::get('/shop', [ForntendController::class, 'shop'])->name('frontend.shop');
+Route::get('/shop/{slug?}', [FrontendController::class, 'shop'])->name('frontend.shop');
+Route::get('/shop/tags/{slug}', [FrontendController::class, 'shop_tag'])->name('frontend.shop_tag');
+Route::get('/product/{slug?}', [FrontendController::class, 'product'])->name('frontend.product');
+Route::get('/cart', [FrontendController::class, 'cart'])->name('frontend.cart');
+Route::get('/wishlist', [FrontendController::class, 'wishlist'])->name('frontend.wishlist');
 
-Route::get('/detail', [ForntendController::class, 'detail'])->name('frontend.detail');
+Route::group(['middleware' => ['roles', 'role:customer']], function () {
+    Route::get('/dashboard', [Frontend\CustomerController::class, 'dashboard'])->name('customer.dashboard');
+    Route::get('/profile', [Frontend\CustomerController::class, 'profile'])->name('customer.profile');
+    Route::patch('/profile', [Frontend\CustomerController::class, 'update_profile'])->name('customer.update_profile');
+    Route::get('/profile/remove-image', [Frontend\CustomerController::class, 'remove_profile_image'])->name('customer.remove_profile_image');
+    Route::get('/addresses', [Frontend\CustomerController::class, 'addresses'])->name('customer.addresses');
 
-Route::get('/cart', [ForntendController::class, 'cart'])->name('frontend.cart');
+    Route::get('/orders', [Frontend\CustomerController::class, 'orders'])->name('customer.orders');
 
-Route::get('/checkout', [ForntendController::class, 'checkout'])->name('frontend.checkout');
+    Route::group(['middleware' => 'check_cart'], function () {
+        Route::get('/checkout', [Frontend\PaymentController::class, 'checkout'])->name('frontend.checkout');
+        Route::post('/checkout/payment', [Frontend\PaymentController::class, 'checkout_now'])->name('checkout.payment');
+        Route::get('/checkout/{order_id}/cancelled', [Frontend\PaymentController::class, 'cancelled'])->name('checkout.cancel');
+        Route::get('/checkout/{order_id}/completed', [Frontend\PaymentController::class, 'completed'])->name('checkout.complete');
+        Route::get('/checkout/webhook/{order?}/{env?}', [Frontend\PaymentController::class, 'webhook'])->name('checkout.webhook.ipn');
+    });
 
-// Route::get('/test', [ForntendController::class, 'test'])->name('test');
+});
 
 Auth::routes(['verify' => true]);
 
