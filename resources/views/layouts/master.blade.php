@@ -14,9 +14,7 @@
         <div class="container">
             @yield('content')
         </div>
-        
-        @include('partial.frontend.modal')
-        
+                
         @include('layouts.footer')
 
         <!-- JavaScript files-->
